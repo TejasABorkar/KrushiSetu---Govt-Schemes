@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import {
   Search,
@@ -28,12 +28,8 @@ const SchemePage = () => {
 
   const schemesPerPage = 8;
 
-  // ✅ Fetch schemes when lang changes
-  useEffect(() => {
-    fetchSchemes();
-  }, [lang]);
-
-  const fetchSchemes = async () => {
+  // ✅ FIX: wrap in useCallback so it's a stable dependency for useEffect
+  const fetchSchemes = useCallback(async () => {
     try {
       console.log("Fetching all schemes with lang:", lang); // debug
       const data = await getAllSchemes(lang);
@@ -43,7 +39,12 @@ const SchemePage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [lang]);
+
+  // ✅ Fetch schemes when lang (or fetchSchemes) changes
+  useEffect(() => {
+    fetchSchemes();
+  }, [fetchSchemes]);
 
   // ✅ FIX: remove reload
   const changeLanguage = (newLang) => {
