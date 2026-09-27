@@ -2,11 +2,18 @@ FROM eclipse-temurin:21-jdk
 
 WORKDIR /app
 
-COPY . .
+# Copy Maven wrapper and configuration files first to leverage build cache
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
+COPY src src
 
 RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
 
-EXPOSE 8080
+# Render dynamically sets PORT environment variable (typically 10000)
+ENV PORT=10000
+EXPOSE ${PORT}
 
-CMD ["java", "-jar", "target/Backend-0.0.1-SNAPSHOT.jar"]
+CMD ["sh", "-c", "java -jar target/Backend-0.0.1-SNAPSHOT.jar --server.port=${PORT}"]
+

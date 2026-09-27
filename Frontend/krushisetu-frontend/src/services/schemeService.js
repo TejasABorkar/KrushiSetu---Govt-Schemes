@@ -1,6 +1,4 @@
-import axios from "axios";
-
-const API_URL = "http://localhost:8081/api/schemes";
+const API_URL = "https://krushisetu-govt-schemes.onrender.com/api/schemes";
 
 export const getAllSchemes = async (lang) => {
   const res = await fetch(`${API_URL}?lang=${lang}`);

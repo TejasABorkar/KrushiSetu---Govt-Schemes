@@ -1,0 +1,14 @@
+.idea/
+.vscode/
+
+Backend/target/
+
+Frontend/krushisetu-frontend/node_modules/
+
+node_modules/
+target/
+build/
+
+.env
+*.log
+.cache/
