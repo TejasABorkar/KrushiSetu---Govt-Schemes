@@ -8,10 +8,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/schemes")
+
 @CrossOrigin(origins = {
-        "http://localhost:3000",
-        "https://your-frontend-domain.vercel.app"
+    "http://localhost:3000",
+    "https://krushi-setu-govt-schemes.vercel.app"
 })
+
+
 public class SchemeController {
 
     private final SchemeService schemeService;
